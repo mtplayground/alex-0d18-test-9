@@ -2,6 +2,8 @@ target/
 node_modules/
 .next/
 out/
+playwright-report/
+test-results/
 .env
 .env.local
 .env.development.local
