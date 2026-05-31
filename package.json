@@ -9,6 +9,7 @@
     "format": "prettier --write .",
     "test": "vitest run --passWithNoTests",
     "test:e2e": "playwright test",
+    "verify:export": "next build && node scripts/verify-static-export.mjs",
     "start": "next start -H 0.0.0.0 -p 8080"
   },
   "dependencies": {
