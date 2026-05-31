@@ -1,14 +1,22 @@
+import { CTA } from "@/components/sections/cta";
+import { Footer } from "@/components/sections/footer";
+import { Hero } from "@/components/sections/hero";
+import { HowItWorks } from "@/components/sections/how-it-works";
+import { Pitch } from "@/components/sections/pitch";
+import { readPublicEnv } from "@/lib/env";
+
 export default function Home() {
+  const { ctaUrl } = readPublicEnv();
+
   return (
-    <main className="page-shell">
-      <section className="placeholder-panel" aria-labelledby="page-title">
-        <p className="eyebrow">Issue #1</p>
-        <h1 id="page-title">Next.js App Router initialized</h1>
-        <p>
-          This placeholder page confirms the TypeScript App Router foundation is
-          ready for the landing page sections in later issues.
-        </p>
-      </section>
-    </main>
+    <>
+      <main className="bg-background">
+        <Hero ctaUrl={ctaUrl} />
+        <Pitch />
+        <HowItWorks />
+        <CTA ctaUrl={ctaUrl} />
+      </main>
+      <Footer />
+    </>
   );
 }
