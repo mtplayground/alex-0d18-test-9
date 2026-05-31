@@ -7,6 +7,18 @@ import "./globals.css";
 const { siteUrl } = readPublicEnv();
 const siteName = "Agent Team for Founders";
 const siteDescription = "You just talk, we handle the rest.";
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: siteName,
+  url: siteUrl,
+  logo: new URL("/opengraph-image", siteUrl).toString(),
+  description: siteDescription,
+};
+const organizationJsonLdScript = JSON.stringify(organizationJsonLd).replace(
+  /</g,
+  "\\u003c",
+);
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +50,13 @@ type RootLayoutProps = Readonly<{
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body className={inter.variable}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: organizationJsonLdScript }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
