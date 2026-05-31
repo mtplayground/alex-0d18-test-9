@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "vitest run --passWithNoTests",
+    "test:e2e": "playwright test",
     "start": "next start -H 0.0.0.0 -p 8080"
   },
   "dependencies": {
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.5",
+    "@playwright/test": "^1.60.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/node": "^20",

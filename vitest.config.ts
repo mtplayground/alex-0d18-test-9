@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 
@@ -14,6 +14,7 @@ export default defineConfig({
   test: {
     css: true,
     environment: "jsdom",
+    exclude: [...configDefaults.exclude, "tests/e2e/**"],
     globals: true,
     setupFiles: "./test/setup.ts",
   },
