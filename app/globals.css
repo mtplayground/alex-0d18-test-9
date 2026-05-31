@@ -5,11 +5,22 @@
 @layer base {
   :root {
     color-scheme: light;
-    --color-background: #f7f8fa;
-    --color-foreground: #171717;
-    --color-muted: #4b5563;
-    --color-border: #dfe3e8;
-    --color-panel: #ffffff;
+    --color-background: 247 248 250;
+    --color-foreground: 23 23 23;
+    --color-muted: 75 85 99;
+    --color-border: 223 227 232;
+    --color-input: 209 213 219;
+    --color-panel: 255 255 255;
+    --color-primary: 17 24 39;
+    --color-primary-foreground: 255 255 255;
+    --color-secondary: 229 231 235;
+    --color-secondary-foreground: 17 24 39;
+    --color-accent: 238 242 247;
+    --color-accent-foreground: 17 24 39;
+    --color-destructive: 180 35 24;
+    --color-destructive-foreground: 255 255 255;
+    --color-ring: 37 99 235;
+    --radius: 0.5rem;
   }
 
   html {
@@ -19,8 +30,8 @@
   body {
     min-height: 100%;
     margin: 0;
-    background: theme("colors.background");
-    color: theme("colors.foreground");
+    background: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
     font-family: theme("fontFamily.sans");
   }
 
@@ -37,7 +48,7 @@
 
   p {
     margin: 18px 0 0;
-    color: theme("colors.muted");
+    color: rgb(var(--color-muted));
     font-size: 1.125rem;
     line-height: 1.6;
   }
