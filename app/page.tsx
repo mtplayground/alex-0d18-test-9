@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { CTA } from "@/components/sections/cta";
 import { Footer } from "@/components/sections/footer";
+import { Header } from "@/components/sections/header";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Pitch } from "@/components/sections/pitch";
@@ -33,7 +34,8 @@ export default function Home() {
 
   return (
     <>
-      <main className="bg-background">
+      <Header ctaUrl={ctaUrl} />
+      <main id="main-content" className="bg-background" tabIndex={-1}>
         <Hero ctaUrl={ctaUrl} />
         <Pitch />
         <HowItWorks />
