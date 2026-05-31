@@ -15,6 +15,8 @@ const eslintConfig = [
       ".next/**",
       "node_modules/**",
       "out/**",
+      "playwright-report/**",
+      "test-results/**",
       "next-env.d.ts",
       "package-lock.json",
     ],
