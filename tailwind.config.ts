@@ -31,8 +31,7 @@ const config: Config = {
         ring: "rgb(var(--color-ring) / <alpha-value>)",
         secondary: {
           DEFAULT: "rgb(var(--color-secondary) / <alpha-value>)",
-          foreground:
-            "rgb(var(--color-secondary-foreground) / <alpha-value>)",
+          foreground: "rgb(var(--color-secondary-foreground) / <alpha-value>)",
         },
       },
       fontFamily: {
