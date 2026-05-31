@@ -1,0 +1,68 @@
+Architecture plan for issues #1-#20
+
+Product source of truth
+- Use copy and product/brand identifiers only from GitHub issues and PRODUCT.md when present.
+- Current checkout has no PRODUCT.md. The available issue copy includes:
+  - Hero headline: "Agent Team for Founders"
+  - Hero subline: "You just talk, we handle the rest"
+  - Pitch cards: "You own the code", "End-to-end SDLC", "Production-ready & secure"
+  - How it works steps: Planning, Building, Deploying, Operating
+  - CTA heading: "Start building today"
+- Keep any future brand name/tagline constants in one shared module so metadata, JSON-LD, footer, hero, and OG image cannot drift.
+
+Module structure and file organization
+- Next.js App Router root:
+  - app/layout.tsx: root HTML, font class, metadata defaults, global JSON-LD script.
+  - app/page.tsx: composed landing page sections in the order Hero, Pitch, HowItWorks, CTA, Footer.
+  - app/globals.css: Tailwind base layer, CSS variables, focus styles, responsive page background.
+  - app/opengraph-image.tsx: dynamic 1200x630 Open Graph image using next/og.
+  - app/sitemap.ts and app/robots.ts: static metadata routes.
+- Shared configuration:
+  - lib/env.ts: typed accessors for NEXT_PUBLIC_SITE_URL and NEXT_PUBLIC_CTA_URL with static-export-safe defaults or validation.
+  - lib/site.ts: site copy/constants sourced from issues/PRODUCT.md, including URLs, metadata text, organization schema data, and landing page content.
+  - lib/utils.ts: shadcn-style cn helper using clsx and tailwind-merge.
+- UI and sections:
+  - components/ui/button.tsx: shadcn-compatible Button primitive with variants and sizes.
+  - components/sections/hero.tsx
+  - components/sections/pitch.tsx
+  - components/sections/how-it-works.tsx
+  - components/sections/cta.tsx
+  - components/sections/footer.tsx
+- Tests:
+  - test/setup.ts for @testing-library/jest-dom.
+  - Component tests colocated as *.test.tsx or under __tests__/ for section render assertions.
+  - e2e/landing.spec.ts for Playwright smoke coverage.
+
+Issue dependencies and implementation order
+- Foundation:
+  - #1 initializes Next.js 15, TypeScript strict mode, App Router, placeholder layout/page.
+  - #2 adds Tailwind, global styles, and font setup.
+  - #3 adds shadcn Button, lucide-react, and utility helpers.
+  - #4 adds linting, formatting, and editor defaults.
+  - #5 defines public env vars and lib/env.ts.
+  - #6 enables static export in next.config.mjs.
+- Landing sections:
+  - #7 Hero depends on Tailwind, Button, and env CTA URL.
+  - #8 Pitch depends on Tailwind section styling.
+  - #9 HowItWorks depends on Tailwind and lucide-react icons.
+  - #10 CTA/Footer depends on Tailwind and Button.
+  - #11 composes all sections into app/page.tsx.
+- SEO/static metadata:
+  - #12 metadata uses shared site constants and env site URL.
+  - #13 dynamic OG image uses shared brand/tagline constants.
+  - #14 sitemap/robots use shared site URL.
+  - #15 Organization JSON-LD uses shared site constants.
+- Quality gates:
+  - #16 installs and configures Vitest/React Testing Library.
+  - #17 adds section unit tests once components exist.
+  - #18 adds Playwright smoke test after page composition.
+  - #19 performs accessibility and responsive fixes after the page is complete.
+  - #20 validates next build static export output and serves out/ locally.
+
+Key design decisions
+- Use a static-export-compatible architecture: avoid server-only runtime data and remote image optimization; prefer CSS, SVG/icon components, and local/static assets.
+- Centralize public URLs and site copy in lib/env.ts and lib/site.ts to keep CTA, metadata, sitemap, robots, JSON-LD, and tests aligned.
+- Keep sections as mostly server components with simple props/data arrays; client components should only be introduced if interaction requires them.
+- Use semantic HTML landmarks and a single main heading on the page from the start to reduce rework during the accessibility pass.
+- Favor responsive Tailwind utilities with mobile-first layouts: stacked sections at small widths, grid/horizontal layouts from tablet/desktop breakpoints.
+- Keep tests focused on user-visible behavior and copy: section render tests for key text/links and one Playwright smoke test for loaded page and primary CTA visibility.
